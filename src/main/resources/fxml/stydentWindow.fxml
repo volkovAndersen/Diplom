@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('file:D:/Университет/Диплом/MavenToFX/src/main/resources/img/back.jpg'); -fx-background-color: #60B9CE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pages.controllers.StudentWindowController">
+    <children>
+        <Button fx:id="englishLangButton" layoutX="450.0" layoutY="122.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="133.0" text="РУССКИЙ" />
+        <Button fx:id="russianLangButton" layoutX="450.0" layoutY="199.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="133.0" text="ENGLISH" />
+        <Button fx:id="backButton" layoutX="48.0" layoutY="33.0" mnemonicParsing="false" text="НАЗАД" />
+    </children>
+</AnchorPane>

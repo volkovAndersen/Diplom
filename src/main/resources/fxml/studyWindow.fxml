@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('file:D:/Университет/Диплом/MavenToFX/src/main/resources/img/back.jpg'); -fx-background-color: #60B9CE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pages.controllers.StudyWindowController">
+   <children>
+      <BorderPane layoutY="-2.0" prefHeight="600.0" prefWidth="1000.0">
+          <bottom>
+              <HBox alignment="center">
+                  <padding>
+                      <Insets bottom="25" left="25" right="25" top="25" />
+                  </padding>
+                 <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" text="НАЗАД" />
+                 </children>
+              </HBox>
+          </bottom>
+         <right>
+              <ImageView fx:id="currentFrame" fitHeight="459.0" fitWidth="638.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
