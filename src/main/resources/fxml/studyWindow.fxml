@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -19,13 +21,38 @@
                       <Insets bottom="25" left="25" right="25" top="25" />
                   </padding>
                  <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" text="НАЗАД" />
+                  <Button fx:id="backButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="219.0" text="НАЗАД" />
                  </children>
               </HBox>
           </bottom>
-         <right>
-              <ImageView fx:id="currentFrame" fitHeight="459.0" fitWidth="638.0" BorderPane.alignment="CENTER" />
-         </right>
+         <left>
+            <AnchorPane prefHeight="499.0" prefWidth="353.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="literalView" layoutX="39.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Q" textAlignment="CENTER" wrappingWidth="274.13671875">
+                     <font>
+                        <Font size="96.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="109.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SHOW ME: " wrappingWidth="133.5703125">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                    <ImageView fx:id="currentFrame" fitHeight="459.0" fitWidth="638.0" layoutX="5.0" layoutY="20.0" />
+                  <Text fx:id="textResult" fill="RED" layoutX="61.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorry, no... try again" wrappingWidth="524.13671875">
+                     <font>
+                        <Font size="79.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

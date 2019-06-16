@@ -12,7 +12,7 @@ public class OpenNewWindow {
     public void openNewScene(String window, Stage stage) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource(window));
-        stage.setTitle("Hello World");
+        stage.setTitle("Английский для детей");
         stage.setScene(new Scene(root, 1000, 600));
         stage.toFront();
         stage.setResizable(false);

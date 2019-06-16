@@ -44,13 +44,13 @@ public class OpenController {
         /**
          * Перевод в окно 'Учитель'
          */
-        teacherButton.setOnAction(event -> Actions.goTo(newWindow, "/fxml/teacherWindow.fxml"));
+        teacherButton.setOnAction(event -> Actions.goTo(newWindow, "/fxml/autorisationWindow.fxml"));
 
         /**
          * Перевод в окно 'Ученик'
          */
         studentButton.setOnAction(event -> {
-            Actions.goTo(newWindow, "/fxml/stydentWindow.fxml");
+            Actions.goTo(newWindow, "/fxml/studentWindow.fxml");
         });
 
         /**

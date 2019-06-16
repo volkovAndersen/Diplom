@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import main.MainApp;
 import tools.actions.Actions;
+import tools.utils.LanguageTesseract;
 import tools.windows.OpenNewWindow;
 
 import java.net.URL;
@@ -32,22 +33,18 @@ public class StudentWindowController {
     void initialize() {
         assert englishLangButton != null : "fx:id=\"englishLangButton\" was not injected: check your FXML file 'studentWindow.fxml'.";
         assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'studentWindow.fxml'.";
-
         assert russianLangButton != null : "fx:id=\"russianLangButton\" was not injected: check your FXML file 'studentWindow.fxml'.";
-        backButton.setOnAction(event -> {
-            String windowLocation = "/fxml/open.fxml";
-            try {
-                newWindow.openNewScene(windowLocation, MainApp.getStage());
-            }
-            catch (Exception e){
-                System.out.println("Что-то пошло не так открытием страницы: " + windowLocation);
-            }
+
+        backButton.setOnAction(event -> Actions.goTo(newWindow,"/fxml/open.fxml"));
+
+        englishLangButton.setOnAction(event -> {
+            LanguageTesseract.setLang("ENG");
+            Actions.goTo(newWindow, "/fxml/studyWindow.fxml");
         });
 
-        englishLangButton.setOnAction(event -> Actions.goTo(newWindow, "/fxml/studyWindow.fxml"));
-
-        russianLangButton.setOnAction(event -> Actions.goTo(newWindow, "/fxml/studyWindow.fxml"));
-
+        russianLangButton.setOnAction(event -> {
+            LanguageTesseract.setLang("RUS");
+            Actions.goTo(newWindow, "/fxml/studyWindow.fxml");
+        });
     }
-
 }

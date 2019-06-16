@@ -7,12 +7,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
+import javafx.scene.text.Text;
 import main.MainApp;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 
 import tools.*;
 import tools.actions.Actions;
+import tools.utils.LanguageTesseract;
 import tools.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,9 +50,19 @@ public class StudyWindowController {
     Grey grey = new Grey();
 
     @FXML
+    private Text literalView;
+
+
+    @FXML
+    private Text textResult;
+
+    @FXML
     void initialize() {
+        assert textResult != null : "fx:id=\"textResult\" was not injected: check your FXML file 'studyWindow.fxml'.";
         assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'studyWindow.fxml'.";
         assert currentFrame != null : "fx:id=\"currentFrame\" was not injected: check your FXML file 'studyWindow.fxml'.";
+        assert literalView != null : "fx:id=\"literalView\" was not injected: check your FXML file 'studyWindow.fxml'.";
+
 
         /**
          * При нажатии назад -> Переходим в гланое меню + Закриваем считывание
@@ -83,7 +95,8 @@ public class StudyWindowController {
             if (this.capture.isOpened())
             {
                 this.cameraActive = true;
-                Tesseract.setUp();
+                Tesseract.setUp(LanguageTesseract.getLang());
+
                 // grab a frame every 33 ms (30 frames/sec)
                 Runnable frameGrabber = () -> {
                     // effectively grab and process a single frame
