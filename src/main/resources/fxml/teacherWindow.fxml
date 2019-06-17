@@ -8,20 +8,28 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('file:D:/Университет/Диплом/MavenToFX/src/main/resources/img/back.jpg'); -fx-background-color: #60B9CE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pages.controllers.TeacherWindowController">
    <children>
-      <Button fx:id="backButton" layoutX="118.0" layoutY="482.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" text="НАЗАД" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="712.0" AnchorPane.topAnchor="482.0" />
-      <TableView fx:id="resultTable" layoutX="75.0" layoutY="83.0" prefHeight="367.0" prefWidth="521.0">
+      <Button fx:id="backButton" layoutX="86.0" layoutY="490.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" text="НАЗАД" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="744.0" AnchorPane.topAnchor="490.0" />
+      <TableView fx:id="resultTable" layoutX="47.0" layoutY="85.0" prefHeight="367.0" prefWidth="521.0">
         <columns>
             <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="0.0" text="ID Результата" />
-          <TableColumn fx:id="nameColumn" prefWidth="218.0" text="Имя ребенка" />
-            <TableColumn fx:id="resultColumn" prefWidth="167.0" text="Результат" />
-          <TableColumn fx:id="dateColumn" prefWidth="134.0" text="Дата" />
+          <TableColumn fx:id="nameColumn" prefWidth="181.0" text="Имя ребенка" />
+            <TableColumn fx:id="resultColumn" prefWidth="146.0" text="Результат" />
+          <TableColumn fx:id="dateColumn" prefWidth="192.0" text="Дата" />
         </columns>
       </TableView>
-      <TextField fx:id="nameField" layoutX="773.0" layoutY="90.0" />
-      <TextField fx:id="oldField" layoutX="773.0" layoutY="151.0" />
-      <Text layoutX="773.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя ребенка" />
-      <Text layoutX="773.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Возраст" />
-      <Button fx:id="addChildButton" layoutX="773.0" layoutY="195.0" mnemonicParsing="false" onAction="#addChild" text="Добавить ребенка" />
-      <ComboBox fx:id="childSet" layoutX="770.0" layoutY="300.0" prefWidth="150.0" />
+      <TextField fx:id="nameField" layoutX="624.0" layoutY="109.0" />
+      <TextField fx:id="oldField" layoutX="624.0" layoutY="163.0" />
+      <Text layoutX="624.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя ребенка" />
+      <Text layoutX="624.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Возраст" />
+      <Button fx:id="addChildButton" layoutX="624.0" layoutY="207.0" mnemonicParsing="false" onAction="#addChild" text="Добавить ребенка" />
+      <TableView fx:id="childTable" layoutX="624.0" layoutY="245.0" prefHeight="200.0" prefWidth="330.0">
+        <columns>
+            <TableColumn fx:id="idChild" minWidth="0.0" prefWidth="0.0" text="Column X" />
+          <TableColumn fx:id="nameChild" minWidth="0.0" prefWidth="168.0" text="Имя" />
+          <TableColumn fx:id="oldChild" prefWidth="155.0" text="Возраст" />
+        </columns>
+      </TableView>
+      <Button fx:id="deleteButton" layoutX="624.0" layoutY="471.0" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="118.0" text="Удалить" />
+      <Button fx:id="setCurrent" layoutX="824.0" layoutY="471.0" mnemonicParsing="false" onAction="#current" text="Установить текущим" />
    </children>
 </AnchorPane>

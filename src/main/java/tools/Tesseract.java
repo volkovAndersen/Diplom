@@ -22,16 +22,18 @@ public class Tesseract {
         }
     }
 
-    public void searchText(BufferedImage bufferedImage){
+    public String searchText(BufferedImage bufferedImage){
 
         BufferedImage img = bufferedImage;
 
         try {
             String result = instance.doOCR(bufferedImage);
             System.out.println(result);
+            return result;
         } catch (TesseractException e) {
             System.err.println(e.getMessage());
         }
+        return null;
     }
 
 }

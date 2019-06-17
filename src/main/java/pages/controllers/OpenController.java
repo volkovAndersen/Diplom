@@ -2,6 +2,7 @@ package pages.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import persons.current.CurrentChild;
 import tools.actions.Actions;
 import tools.windows.OpenNewWindow;
 
@@ -40,6 +41,12 @@ public class OpenController {
         assert teacherButton != null : "fx:id=\"teacherButton\" was not injected: check your FXML file 'open.fxml'.";
         assert exit != null : "fx:id=\"exit\" was not injected: check your FXML file 'open.fxml'.";
         assert studentButton != null : "fx:id=\"studentButton\" was not injected: check your FXML file 'open.fxml'.";
+
+        if (CurrentChild.getIdOfCurrentChild( ) == 1211) {
+            studentButton.setDisable(true);
+        } else {
+            studentButton.setDisable(false);
+        }
 
         /**
          * Перевод в окно 'Учитель'

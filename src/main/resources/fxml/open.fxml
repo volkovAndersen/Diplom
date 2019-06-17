@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
+
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('file:D:/Университет/Диплом/MavenToFX/src/main/resources/img/back.jpg'); -fx-background-color: #60B9CE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pages.controllers.OpenController">
    <children>
       <AnchorPane layoutY="100.0" prefHeight="384.0" prefWidth="1000.0" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
-            <Button fx:id="studentButton" layoutX="378.0" layoutY="40.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="251.0" text="УЧЕНИК" textAlignment="CENTER" AnchorPane.bottomAnchor="258.0" AnchorPane.leftAnchor="378.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="40.0" />
-            <Button fx:id="teacherButton" layoutX="375.0" layoutY="163.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="251.0" text="УЧИТЕЛЬ" textAlignment="CENTER" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="374.0" AnchorPane.topAnchor="163.0" />
-            <Button fx:id="exit" layoutX="378.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="251.0" text="ВЫХОД" textAlignment="CENTER" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="378.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="316.0" />
+            <Button fx:id="studentButton" layoutX="378.0" layoutY="40.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="251.0" style="-fx-background-color: #3aea63;" text="УЧЕНИК" textAlignment="CENTER" AnchorPane.bottomAnchor="258.0" AnchorPane.leftAnchor="378.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="40.0">
+               <font>
+                  <Font size="26.0" />
+               </font></Button>
+            <Button fx:id="teacherButton" layoutX="375.0" layoutY="163.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="251.0" style="-fx-background-color: #ffe924;" text="УЧИТЕЛЬ" textAlignment="CENTER" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="374.0" AnchorPane.topAnchor="163.0">
+               <font>
+                  <Font size="26.0" />
+               </font></Button>
+            <Button fx:id="exit" layoutX="378.0" layoutY="300.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="251.0" style="-fx-background-color: #ff3d3d;" text="ВЫХОД" textAlignment="CENTER" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="378.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font size="26.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </children>

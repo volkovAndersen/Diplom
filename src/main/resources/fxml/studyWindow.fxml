@@ -20,20 +20,30 @@
                   <padding>
                       <Insets bottom="25" left="25" right="25" top="25" />
                   </padding>
-                 <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="219.0" text="НАЗАД" />
-                 </children>
+               <children>
+                  <Pane prefHeight="62.0" prefWidth="848.0">
+                     <children>
+                        <Button fx:id="backButton" layoutX="453.0" layoutY="6.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="219.0" text="НАЗАД" />
+                        <ProgressBar fx:id="progressBar" layoutX="42.0" layoutY="22.0" prefHeight="18.0" prefWidth="368.0" progress="0.0" />
+                     </children>
+                  </Pane>
+               </children>
               </HBox>
           </bottom>
          <left>
             <AnchorPane prefHeight="499.0" prefWidth="353.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="literalView" layoutX="39.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Q" textAlignment="CENTER" wrappingWidth="274.13671875">
+                  <Text fx:id="literalView" layoutX="39.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="274.13671875">
                      <font>
                         <Font size="96.0" />
                      </font>
                   </Text>
-                  <Text layoutX="109.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SHOW ME: " wrappingWidth="133.5703125">
+                  <Text layoutX="64.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ПОКАЖИ БУКВУ " wrappingWidth="223.5703125">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="score" layoutX="107.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="СЧЕТ: " wrappingWidth="137.40625">
                      <font>
                         <Font size="26.0" />
                      </font>
@@ -45,7 +55,12 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                     <ImageView fx:id="currentFrame" fitHeight="459.0" fitWidth="638.0" layoutX="5.0" layoutY="20.0" />
-                  <Text fx:id="textResult" fill="RED" layoutX="61.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorry, no... try again" wrappingWidth="524.13671875">
+                  <Text fx:id="textResultFalse" fill="RED" layoutX="42.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorry, no… try again" wrappingWidth="563.13671875">
+                     <font>
+                        <Font size="54.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="textResultRigt" fill="#70ff00" layoutX="42.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="563.13671875">
                      <font>
                         <Font size="79.0" />
                      </font>

@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import persons.Child;
 import persons.Result;
+import persons.current.CurrentChild;
 import tools.Connect;
 import tools.actions.Actions;
 import tools.windows.OpenNewWindow;
@@ -23,11 +24,12 @@ public class TeacherWindowController {
 
     OpenNewWindow newWindow = null;
     private Connection connection;
-    private ObservableList<Result> data;
+    private ObservableList<Result> dataResult;
+    private ObservableList<Child> dataChild;
 
 
     @FXML
-    private TableColumn<Result, String> resultColumn;
+    private TableColumn<Result, Integer> resultColumn;
 
     @FXML
     private TableColumn<Result, String> nameColumn;
@@ -36,7 +38,7 @@ public class TeacherWindowController {
     private Button backButton;
 
     @FXML
-    private TableColumn<Result, Integer> dateColumn;
+    private TableColumn<Result, String> dateColumn;
 
     @FXML
     private TableColumn<Result, Integer> idColumn;
@@ -57,6 +59,24 @@ public class TeacherWindowController {
     private ComboBox<String> childSet;
 
     @FXML
+    private TableColumn<Child, String> nameChild;
+
+    @FXML
+    private TableColumn<Child, Integer> idChild;
+
+    @FXML
+    private TableColumn<Child, String> oldChild;
+
+    @FXML
+    private TableView<Child> childTable;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button setCurrent;
+
+    @FXML
     void initialize() throws SQLException {
 
         assert oldField != null : "fx:id=\"oldField\" was not injected: check your FXML file 'teacherWindow.fxml'.";
@@ -71,13 +91,14 @@ public class TeacherWindowController {
 
 
         connection = Connect.getConnection( );
+
         initCollumns();
 
         backButton.setOnAction(event -> Actions.goTo(newWindow, "/fxml/open.fxml"));
     }
 
     @FXML
-    void addChild(ActionEvent event){
+    void addChild(ActionEvent event) throws SQLException {
         if (!nameField.equals("") && !oldField.equals(""))  {
             try {
                 connection = Connect.getConnection();
@@ -88,7 +109,7 @@ public class TeacherWindowController {
                             "           ([Имя]\n" +
                             "           ,[Возраст])\n" +
                             "     VALUES\n" +
-                            "           (" + nameField.getText() +" \n" +
+                            "           ('" + nameField.getText() +"' \n" +
                             "           ," + oldField.getText()+ ")\n");
 
                     resultSet.close();
@@ -100,7 +121,7 @@ public class TeacherWindowController {
             finally {
                 nameField.setText("");
                 oldField.setText("");
-
+                reloadFunc();
             }
         }
         else {
@@ -111,15 +132,22 @@ public class TeacherWindowController {
 
     private void initCollumns() throws SQLException {
         idColumn.setCellValueFactory(new PropertyValueFactory<Result, Integer>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Result, String>("name"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<Result, Integer>("date"));
-        resultColumn.setCellValueFactory(new PropertyValueFactory<Result, String>("result"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Result, String>("nameChild"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<Result, String>("date"));
+        resultColumn.setCellValueFactory(new PropertyValueFactory<Result, Integer>("result"));
+
+        idChild.setCellValueFactory(new PropertyValueFactory<Child, Integer>("id"));
+        nameChild.setCellValueFactory(new PropertyValueFactory<Child, String>("name"));
+        oldChild.setCellValueFactory(new PropertyValueFactory<Child, String>("old"));
+
         reloadFunc();
     }
 
     private void reloadFunc() throws SQLException {
-        getInitalTableData();
-        resultTable.setItems(data);
+        getInitalTableDataResult();
+        getInitalTableDataChild();
+        resultTable.setItems(dataResult);
+        childTable.setItems(dataChild);
     }
 
 //    private void initComboBox() throws SQLException {
@@ -146,25 +174,51 @@ public class TeacherWindowController {
 //
 //    }
 
-    private void getInitalTableData() throws SQLException {
+    private void getInitalTableDataChild() throws SQLException {
+        List<Child> list = new ArrayList<>();
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT  [IDРебенка]\n" +
+                "      ,[Имя]\n" +
+                "      ,[Возраст]\n" +
+                "  FROM [Люди].[dbo].[Ребенок]");
+
+        while (resultSet.next()){
+            Child child = new Child();
+
+            child.setId(resultSet.getInt(1));
+            child.setName(resultSet.getString(2));
+            child.setOld(resultSet.getString(3));
+
+            list.add(child);
+        }
+
+        resultSet.close();
+        statement.close();
+
+        dataChild = FXCollections.observableList(list);
+    }
+
+    private void getInitalTableDataResult() throws SQLException {
         List<Result> list = new ArrayList<>();
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT DISTINCT   [IDРезультата]\n" +
-                "      ,[Люди].[dbo].[Ребенок].Имя\n" +
+        ResultSet resultSet = statement.executeQuery("SELECT " +
+                "[IDРезультата]\n" +
                 "      ,[Результат]\n" +
                 "      ,[Дата]\n" +
-                "  FROM [Люди].[dbo].[Результаты], [Люди].[dbo].[Ребенок]\n" +
-                "  WHERE Результаты.FKРебенка = Ребенок.IDРебенка\n");
+                "      ,[Люди].[dbo].Ребенок.Имя\n" +
+                "  FROM [Люди].[dbo].[Результаты], [Люди].[dbo].Ребенок\n" +
+                "  WHERE [Люди].[dbo].Ребенок.IDРебенка = [Люди].[dbo].Результаты.FKРебенка");
 
 
         while (resultSet.next()){
             Result result = new Result();
 
             result.setId(resultSet.getInt(1));
-            result.setResult(resultSet.getInt(3));
-            result.setDate(resultSet.getString(4));
-            result.setNameChild(resultSet.getString(2));
+            result.setNameChild(resultSet.getString(4));
+            result.setResult(resultSet.getInt(2));
+            result.setDate(resultSet.getString(3));
 
             result.printInfo();
             list.add(result);
@@ -173,6 +227,29 @@ public class TeacherWindowController {
         resultSet.close();
         statement.close();
 
-        data = FXCollections.observableList(list);
+        dataResult = FXCollections.observableList(list);
+    }
+
+
+
+    @FXML
+    void delete(ActionEvent event) throws SQLException {
+
+        try{
+            Child child = childTable.getSelectionModel().getSelectedItem();
+            connection = Connect.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("DELETE FROM [dbo].[Ребенок]\n" +
+                    "      WHERE IDРебенка = " + child.getId());
+        }
+        finally {
+            reloadFunc();
+        }
+    }
+
+    @FXML
+    void current(ActionEvent event) {
+        Child child = childTable.getSelectionModel().getSelectedItem();
+        CurrentChild.setIdOfCurrentChild(child.getId());
     }
 }

@@ -2,18 +2,33 @@ package pages.controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 import main.MainApp;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 
+import persons.current.CurrentChild;
 import tools.*;
 import tools.actions.Actions;
+import tools.litary.Litary;
+import tools.score.Score;
 import tools.utils.LanguageTesseract;
 import tools.utils.Utils;
 import javafx.event.ActionEvent;
@@ -26,10 +41,16 @@ import tools.windows.OpenNewWindow;
 public class StudyWindowController {
 
     OpenNewWindow newWindow = null;
+    Litary litary = new Litary();
+    private Connection connection;
+
+    boolean flag = false;
 
     @FXML
     private Button backButton;
 
+    @FXML
+    private Text textResultRigt;
 
     // the FXML image view
     @FXML
@@ -43,36 +64,58 @@ public class StudyWindowController {
     private boolean cameraActive = false;
     // the id of the camera to be used
     private static int cameraId = 0;
-    Binary binaryTest = new Binary();
-    BinaryOpenCV binaryOpenCV = new BinaryOpenCV();
+
     Tesseract testTesseract = new Tesseract();
 
-    Grey grey = new Grey();
 
     @FXML
     private Text literalView;
 
+    @FXML
+    private Text textResultFalse;
 
     @FXML
-    private Text textResult;
+    private ProgressBar progressBar;
+
+    @FXML
+    private Text score;
 
     @FXML
     void initialize() {
-        assert textResult != null : "fx:id=\"textResult\" was not injected: check your FXML file 'studyWindow.fxml'.";
-        assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'studyWindow.fxml'.";
-        assert currentFrame != null : "fx:id=\"currentFrame\" was not injected: check your FXML file 'studyWindow.fxml'.";
-        assert literalView != null : "fx:id=\"literalView\" was not injected: check your FXML file 'studyWindow.fxml'.";
+
+        progressBar.setProgress(0.1);
 
 
         /**
          * При нажатии назад -> Переходим в гланое меню + Закриваем считывание
          */
         backButton.setOnAction(event -> {
+            try {
+                sendResult();
+            } catch (SQLException e) {
+                e.printStackTrace( );
+            }
+            Counter.countDown();
             Actions.goTo(newWindow, "/fxml/open.fxml");
             setClosed();
         });
 
+        Counter.countDown();
         startCamera();
+        literalView.setText(litary.getCurrentLitary());
+
+    }
+
+    public void sendResult() throws SQLException {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now= new Date(System.currentTimeMillis());
+        connection = Connect.getConnection();
+        Statement statement = connection.createStatement();
+        //DateTimeFormatter.ofPattern(\"yyyy/MM/dd HH:mm:ss\").format(now)
+        ResultSet resultSet = statement.executeQuery("INSERT INTO [dbo].[Результаты]([Результат],[Дата] ,[FKРебенка])VALUES(" + Counter.getCounter() + ", '" + formatter.format(now) + "'," + CurrentChild.getIdOfCurrentChild()+")");
+
+        resultSet.close();
+        statement.close();
     }
 
     @FXML
@@ -103,10 +146,6 @@ public class StudyWindowController {
                     Mat frame = grabFrame();
                     Mat frame_to_Tesseract =  grabFrame();
 
-//                    Imgproc.cvtColor(frame_to_Tesseract, frame_to_Tesseract, Imgproc.COLOR_BGR2GRAY);
-//                    Imgproc.cvtColor(frame_to_Tesseract, frame_to_Tesseract, Imgproc.THRESH_BINARY);
-//                    BufferedImage img_OpenCV = ConvertToBufferImage.mat2BufImg(frame_to_Tesseract);
-//                    testTesseract.searchText(img_OpenCV);
 
                     //обработка
                     BufferedImage img = null;
@@ -115,15 +154,31 @@ public class StudyWindowController {
                     } catch (IOException e) {
                         e.printStackTrace( );
                     }
-                    //ConvertToBufferImage.mat2BufImg(frame_to_Tesseract);
-                    // BufferedImage greyBuff = grey.toGrey(img);
-                    //BufferedImage binaryBuff = binaryTest.binaryTest(img);
+
+//                    textResultRigt.setText("");
+//                    textResultFalse.setText("");
+
+                    if (flag)
+                        literalView.setText(litary.getCurrentLitary());
 
 
                     // convert and show the frame
                     Image imageToShow = Utils.mat2Image(frame);
                     updateImageView(currentFrame, imageToShow);
-                    testTesseract.searchText(img);
+                    if (testTesseract.searchText(img).contains(literalView.getText()) && !testTesseract.searchText(img).equals("")) {
+                        litary.deleteCurrentLitary();
+                        Counter.plusCounter();
+                        //score.setText("СЧЕТ: " + Counter.getCounter());
+//                        score.setText(String.format("%s" + Counter.getCounter()));
+//                        //textResultRigt.setText("Right!");
+//                        Score.plusScore();
+                        flag = true;
+                    }
+                    else {
+                        //textResultFalse.setText("Sorry, no... try again");
+                        flag = false;
+                    }
+
                 };
 
                 this.timer = Executors.newSingleThreadScheduledExecutor();
@@ -216,4 +271,6 @@ public class StudyWindowController {
     {
         this.stopAcquisition();
     }
+
+
 }
