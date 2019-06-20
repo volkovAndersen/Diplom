@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import main.MainApp;
 import org.opencv.core.Mat;
@@ -28,7 +29,7 @@ import persons.current.CurrentChild;
 import tools.*;
 import tools.actions.Actions;
 import tools.litary.Litary;
-import tools.score.Score;
+
 import tools.utils.LanguageTesseract;
 import tools.utils.Utils;
 import javafx.event.ActionEvent;
@@ -45,6 +46,9 @@ public class StudyWindowController {
     private Connection connection;
 
     boolean flag = false;
+
+    @FXML
+    private TextField scoreField;
 
     @FXML
     private Button backButton;
@@ -83,7 +87,8 @@ public class StudyWindowController {
     @FXML
     void initialize() {
 
-        progressBar.setProgress(0.1);
+        progressBar.setProgress(0.0);
+        LanguageTesseract.setLang("ENG");
 
 
         /**
@@ -129,6 +134,7 @@ public class StudyWindowController {
         });
 
         capture = new VideoCapture();
+
         if (!this.cameraActive)
         {
             // start the video capture
@@ -155,12 +161,11 @@ public class StudyWindowController {
                         e.printStackTrace( );
                     }
 
-//                    textResultRigt.setText("");
-//                    textResultFalse.setText("");
+                    textResultRigt.setText("");
+                    textResultFalse.setText("");
 
                     if (flag)
                         literalView.setText(litary.getCurrentLitary());
-
 
                     // convert and show the frame
                     Image imageToShow = Utils.mat2Image(frame);
@@ -168,17 +173,24 @@ public class StudyWindowController {
                     if (testTesseract.searchText(img).contains(literalView.getText()) && !testTesseract.searchText(img).equals("")) {
                         litary.deleteCurrentLitary();
                         Counter.plusCounter();
-                        //score.setText("СЧЕТ: " + Counter.getCounter());
-//                        score.setText(String.format("%s" + Counter.getCounter()));
-//                        //textResultRigt.setText("Right!");
-//                        Score.plusScore();
+
+                        textResultRigt.setText("Right");
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace( );
+                        }
                         flag = true;
                     }
                     else {
-                        //textResultFalse.setText("Sorry, no... try again");
+//                        textResultFalse.setText("Sorry, no... try again");
+//                        try {
+//                            Thread.sleep(5000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace( );
+//                        }
                         flag = false;
                     }
-
                 };
 
                 this.timer = Executors.newSingleThreadScheduledExecutor();

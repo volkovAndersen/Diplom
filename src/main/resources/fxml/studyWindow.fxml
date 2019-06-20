@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -43,11 +44,16 @@
                         <Font size="26.0" />
                      </font>
                   </Text>
-                  <Text fx:id="score" layoutX="107.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="СЧЕТ: " wrappingWidth="137.40625">
+                  <Text fx:id="score" layoutX="145.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="СЧЕТ" visible="false" wrappingWidth="62.40625">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Text>
+                  <TextField fx:id="scoreField" alignment="CENTER" disable="true" layoutX="129.0" layoutY="393.0" prefHeight="68.0" prefWidth="94.0" text="0" visible="false">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </TextField>
                </children>
             </AnchorPane>
          </left>
@@ -55,12 +61,12 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                     <ImageView fx:id="currentFrame" fitHeight="459.0" fitWidth="638.0" layoutX="5.0" layoutY="20.0" />
-                  <Text fx:id="textResultFalse" fill="RED" layoutX="42.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorry, no… try again" wrappingWidth="563.13671875">
+                  <Text fx:id="textResultFalse" fill="RED" layoutX="42.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="563.13671875">
                      <font>
                         <Font size="54.0" />
                      </font>
                   </Text>
-                  <Text fx:id="textResultRigt" fill="#70ff00" layoutX="42.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="563.13671875">
+                  <Text fx:id="textResultRigt" fill="#397906" layoutX="243.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="222.13671875">
                      <font>
                         <Font size="79.0" />
                      </font>

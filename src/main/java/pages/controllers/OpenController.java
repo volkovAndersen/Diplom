@@ -57,7 +57,7 @@ public class OpenController {
          * Перевод в окно 'Ученик'
          */
         studentButton.setOnAction(event -> {
-            Actions.goTo(newWindow, "/fxml/studentWindow.fxml");
+            Actions.goTo(newWindow, "/fxml/studyWindow.fxml");
         });
 
         /**

@@ -9,32 +9,33 @@ public class Litary {
     private String currentLitary = "";
 
     public Litary(){
-        abc.add("Q");
-        abc.add("W");
-        abc.add("E");
-        abc.add("R");
-        abc.add("T");
-        abc.add("Y");
-        abc.add("U");
-        abc.add("I");
-        abc.add("O");
-        abc.add("P");
         abc.add("A");
-        abc.add("S");
-        abc.add("D");
-        abc.add("F");
-        abc.add("G");
-        abc.add("H");
-        abc.add("J");
-        abc.add("K");
-        abc.add("L");
-        abc.add("Z");
-        abc.add("X");
-        abc.add("C");
-        abc.add("V");
-        abc.add("B");
-        abc.add("N");
-        abc.add("M");
+        abc.add("R");
+
+        abc.add("Q");
+//        abc.add("W");
+//        abc.add("E");
+//        abc.add("T");
+//        abc.add("Y");
+//        abc.add("U");
+//        abc.add("I");
+//        abc.add("O");
+//        abc.add("P");
+//        abc.add("S");
+//        abc.add("D");
+//        abc.add("F");
+//        abc.add("G");
+//        abc.add("H");
+//        abc.add("J");
+//        abc.add("K");
+//        abc.add("L");
+//        abc.add("Z");
+//        abc.add("X");
+//        abc.add("C");
+//        abc.add("V");
+//        abc.add("B");
+//        abc.add("N");
+//        abc.add("M");
 
         abc_buf.addAll(abc);
     }
